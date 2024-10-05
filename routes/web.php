@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('create' ,[ProductController::class,'create'])->name('product.create');
-Route::post('create', [ProductController::class, 'store'])->name('product.store');
+Route::get('create' ,[ProductController::class,'create'])->name( 'product.create');
+Route::post('create', [ProductController::class, 'store'])->name( 'product.store');
+
+//Go To Sales History Page
+Route::get('saleshistorypage' ,[SalesController::class,'goToSales'])->name('sales.history');
+Route::post('saleshistorypage', [SalesController::class, 'addToSales'])->name( 'sales.addTransaction');

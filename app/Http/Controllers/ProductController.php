@@ -9,13 +9,14 @@ class ProductController extends Controller
 {
 
     public function create(){
+    
         return view('products.create');
     }
-
     public function store(Request $request){
         $data = $request->validate([
             'product_name' => 'required',
-            'product_price' => 'required|decimal:0,2'
+            'product_price' => 'required|decimal:0,2',
+            'category' => 'required'
         ]);
         $newProduct = Product::create($data);
         return redirect(route('product.create'));

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div>
         <h1>Errors: </h1>
@@ -20,7 +21,7 @@
     <div>
         <form action="{{route('product.store')}}" method="post">
             @csrf
-            @method('post')
+            @method('post') 
             <div>
                 <label>Product Name</label>
                 <input type="text" name="product_name" placeholder="Input Name">
@@ -28,6 +29,10 @@
             <div>
                 <label>Product Price</label>
                 <input type="text" name="product_price" placeholder="Input Price">
+            </div>
+            <div>
+                <label>Category: </label>
+                <input type="text" name="category" placeholder="Input Category">
             </div>
             <button type="submit">Add Item</button>
         </form>
