@@ -15,4 +15,9 @@ class Sales extends Model
         'total_price',
         'sale_date'
     ];
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    
 }

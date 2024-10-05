@@ -14,4 +14,8 @@ class Product extends Model
         'product_price',
         'category'
     ];
+    public function sales()
+    {
+        return $this->hasMany(Sales::class);
+    }
 }
