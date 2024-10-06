@@ -48,7 +48,7 @@ class SalesController extends Controller
     }
 
     public function callMostItemsSold(){
-        $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+        $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity, SUM(total_price) as final_price'))
         ->groupBy('product_id')
         ->orderBy('total_quantity', 'desc')
         ->with('product')
