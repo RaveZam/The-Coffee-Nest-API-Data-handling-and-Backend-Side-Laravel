@@ -48,12 +48,31 @@ class SalesController extends Controller
     }
 
     public function callMostItemsSold(){
+        
+        $specificdate = Carbon::create(2024, 10, 1); //Current Date Simulation
+        $last28days = $specificdate->copy()->subDays(28); //get the last 28 days of the $specific days
+
         $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity, SUM(total_price) as final_price'))
         ->groupBy('product_id')
         ->orderBy('total_quantity', 'desc')
         ->with('product')
+        ->whereBetween('sale_date', [$last28days, $specificdate])
         ->get();
-    
         return response()->json($sortedSales);
+    }
+
+    public function callCountedCategory()
+    {
+        
+        $specificdate = Carbon::create(2024, 10, 1); //Current Date Simulation
+        $last28days = $specificdate->copy()->subDays(28); //get the last 28 days of the $specific days
+        $sortedCategory = Sales::join('products', 'sales.product_id', '=', 'products.id')  // Join products with sales
+            ->select('products.category', DB::raw('SUM(sales.quantity) as category_count'))  
+            ->groupBy('products.category') 
+            ->orderBy('category_count', 'desc') 
+            ->whereBetween('sale_date', [$last28days, $specificdate])
+            ->get();
+        
+        return response()->json($sortedCategory);
     }
 }
