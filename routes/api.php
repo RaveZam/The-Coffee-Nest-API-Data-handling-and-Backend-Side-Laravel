@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/products', [ProductController::class, 'calltable'])->name('product.call');
 Route::get('/sales', [SalesController::class, 'callSales'])->name('sales.call');
+Route::get('/sortedsales', [SalesController::class, 'callMostItemsSold'])->name('mostItemsSold.call');

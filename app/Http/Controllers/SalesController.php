@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Sales;
 use App\Models\Product;
@@ -45,5 +45,15 @@ class SalesController extends Controller
 
         //orderBy function sets everything into ascending format according to sale_date
         //where between logs 
+    }
+
+    public function callMostItemsSold(){
+        $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+        ->groupBy('product_id')
+        ->orderBy('total_quantity', 'desc')
+        ->with('product')
+        ->get();
+    
+        return response()->json($sortedSales);
     }
 }
