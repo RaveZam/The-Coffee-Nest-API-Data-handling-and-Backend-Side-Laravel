@@ -24,3 +24,4 @@ Route::get('/products', [ProductController::class, 'calltable'])->name('product.
 Route::get('/sales', [SalesController::class, 'callSales'])->name('sales.call');
 Route::get('/sortedsales', [SalesController::class, 'callMostItemsSold'])->name('mostItemsSold.call');
 Route::get('/countedcategory', [SalesController::class, 'callCountedCategory'])->name('countedCategory.call');
+Route::get('/totalpriceperday', [SalesController::class, 'callTotalSalesAndDate'])->name('callTotalSalesAndDate.call');

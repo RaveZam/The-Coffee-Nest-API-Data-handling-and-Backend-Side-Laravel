@@ -47,19 +47,7 @@ class SalesController extends Controller
         //where between logs 
     }
 
-    public function callMostItemsSold(){
-        
-        $specificdate = Carbon::create(2024, 10, 1); //Current Date Simulation
-        $last28days = $specificdate->copy()->subDays(28); //get the last 28 days of the $specific days
 
-        $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity, SUM(total_price) as final_price'))
-        ->groupBy('product_id')
-        ->orderBy('total_quantity', 'desc')
-        ->with('product')
-        ->whereBetween('sale_date', [$last28days, $specificdate])
-        ->get();
-        return response()->json($sortedSales);
-    }
 
     public function callCountedCategory()
     {
@@ -75,4 +63,33 @@ class SalesController extends Controller
         
         return response()->json($sortedCategory);
     }
+    public function callMostItemsSold(){
+        
+        $specificdate = Carbon::create(2024, 10, 1); //Current Date Simulation
+        $last28days = $specificdate->copy()->subDays(28); //get the last 28 days of the $specific days
+
+        $sortedSales = Sales::select('product_id', DB::raw('SUM(quantity) as total_quantity, SUM(total_price) as final_price'))
+        ->groupBy('product_id')
+        ->orderBy('total_quantity', 'desc')
+        ->with('product')
+        ->whereBetween('sale_date', [$last28days, $specificdate])
+        ->get();
+        return response()->json($sortedSales); 
+    }
+
+    public function callTotalSalesAndDate(){
+        $specificdate = Carbon::create(2024, 10, 1); //Current Date Simulation
+        $last28days = $specificdate->copy()->subDays(28); //get the last 28 days of the $specific d
+
+        $summedSalesperDay = Sales::select('sale_date', DB::raw('SUM(total_price) AS final_price'))
+        ->groupBy('sale_date')
+        ->whereBetween('sale_date',[$last28days, $specificdate])
+        ->orderBy('sale_date')
+        ->get();
+
+        return response()->json($summedSalesperDay);
+    }
+   
 }
+
+// i need to call only the sale_date and their total price per day 
