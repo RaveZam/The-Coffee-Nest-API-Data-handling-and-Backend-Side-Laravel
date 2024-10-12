@@ -47,8 +47,6 @@ class SalesController extends Controller
         //where between logs 
     }
 
-
-
     public function callCountedCategory()
     {
         
@@ -89,7 +87,22 @@ class SalesController extends Controller
 
         return response()->json($summedSalesperDay);
     }
-   
+
+    // Calling The Previous Month Data We Need To Take, Total Gross, Total Items Sold == and then the Sales Per Week 
+    // Total Gross = We Just need the Total of The whole previous month 
+    // Total Items Sold = We Need the total Quantity of the whole previous Month
+    // Sales Per Week, by product_id from previous month, sum all of the sales within the same sale_Date, 
+
+     public function previousTotalGross(){
+        //
+     }
+     public function previousTotalQuantity(){
+        //
+     }
+     public function previousMonthSales(){
+        //
+     }
+
 }
 
 // i need to call only the sale_date and their total price per day 
