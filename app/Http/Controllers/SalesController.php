@@ -93,9 +93,18 @@ class SalesController extends Controller
     // Total Items Sold = We Need the total Quantity of the whole previous Month
     // Sales Per Week, by product_id from previous month, sum all of the sales within the same sale_Date, 
 
-     public function previousTotalGross(){
-        //
-     }
+     public function previousTotalGrossAndQuantity(){
+        $specificdate = Carbon::create(2024, 10, 1); 
+        $previousMonthStart = $specificdate->copy()->subMonth()->subMonth()->startOfMonth(); // Start of the previous month
+        $previousMonthEnd = $specificdate->copy()->subMonth()->subMonth()->endOfMonth();  
+        $TotalGross = Sales::select('sale_date', DB::raw('SUM(total_price) as final_price, SUM(quantity) as final_quantity'))
+        ->groupBy('sale_date')
+        ->orderBy('sale_date')
+        ->whereBetween('sale_date', [$previousMonthStart, $previousMonthEnd]) // Correct range for the previous month
+        ->get();
+        
+        return response()->json($TotalGross);
+       }
      public function previousTotalQuantity(){
         //
      }

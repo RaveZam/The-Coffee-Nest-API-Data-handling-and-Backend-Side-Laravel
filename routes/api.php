@@ -16,8 +16,11 @@ use App\Http\Controllers\SalesController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::middleware('throttle:api')->group(function () {
+    Route::get('/data', 'ApiController@getData');
 });
 
 Route::get('/products', [ProductController::class, 'calltable'])->name('product.call');
@@ -25,3 +28,4 @@ Route::get('/sales', [SalesController::class, 'callSales'])->name('sales.call');
 Route::get('/sortedsales', [SalesController::class, 'callMostItemsSold'])->name('mostItemsSold.call');
 Route::get('/countedcategory', [SalesController::class, 'callCountedCategory'])->name('countedCategory.call');
 Route::get('/totalpriceperday', [SalesController::class, 'callTotalSalesAndDate'])->name('callTotalSalesAndDate.call');
+Route::get('/previousmonthsales', [SalesController::class, 'previousTotalGrossAndQuantity'])->name('callPreviousMonthTotalSalesAndGross');
