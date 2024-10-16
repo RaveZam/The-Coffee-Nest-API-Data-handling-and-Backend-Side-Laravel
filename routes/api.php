@@ -22,7 +22,7 @@ use App\Http\Controllers\SalesController;
 Route::middleware('throttle:api')->group(function () {
     Route::get('/data', 'ApiController@getData');
 });
-
+    
 Route::get('/products', [ProductController::class, 'calltable'])->name('product.call');
 Route::get('/sales', [SalesController::class, 'callSales'])->name('sales.call');
 Route::get('/sortedsales', [SalesController::class, 'callMostItemsSold'])->name('mostItemsSold.call');
