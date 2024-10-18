@@ -35,7 +35,15 @@ class TestsController extends Controller
                 'total_price' => $totalprice,
                 'sale_date' => $specificdate,
             ]);
+
+            if($product){
+                $product->stocks = $sale['newStocks'];
+                $product->save();
+            }
         }
+
+
+
 
         return response()->json(['message' => 'Sales recorded successfully'], 201);
     }
