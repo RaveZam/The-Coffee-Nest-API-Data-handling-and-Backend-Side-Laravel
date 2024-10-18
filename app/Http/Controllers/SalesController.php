@@ -105,13 +105,7 @@ class SalesController extends Controller
         
         return response()->json($TotalGross);
        }
-     public function previousTotalQuantity(){
-        //
-     }
-     public function previousMonthSales(){
-        //
-     }
 
 }
 
-// i need to call only the sale_date and their total price per day 
+// i need to call only the sale_date and their total price per day  

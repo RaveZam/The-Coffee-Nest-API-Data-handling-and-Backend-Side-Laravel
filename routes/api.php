@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\TestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,5 @@ Route::get('/sales', [SalesController::class, 'callSales'])->name('sales.call');
 Route::get('/sortedsales', [SalesController::class, 'callMostItemsSold'])->name('mostItemsSold.call');
 Route::get('/countedcategory', [SalesController::class, 'callCountedCategory'])->name('countedCategory.call');
 Route::get('/totalpriceperday', [SalesController::class, 'callTotalSalesAndDate'])->name('callTotalSalesAndDate.call');
-Route::get('/previousmonthsales', [SalesController::class, 'previousTotalGrossAndQuantity'])->name('callPreviousMonthTotalSalesAndGross');
+Route::get('/previousmonthsales', [SalesController::class, 'previousTotalGrossAndQuantity'])->name('callPreviousMonthTotalSalesAndGross'); 
+Route::post('/test', [TestsController::class, 'store'])->name('callTests');

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model
+class Test extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -16,7 +16,6 @@ class Sales extends Model
     ];
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class); 
     }
-    
 }
