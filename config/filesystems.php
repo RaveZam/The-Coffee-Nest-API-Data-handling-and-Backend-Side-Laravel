@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'react_images' => [ 
+            'driver' => 'local',
+            'root' => base_path('/Users/runielle/Desktop/DSA Frontend/dsafrontend/public/images/'), // Path to your React project's public/images
+        ],
+
     ],
 
     /*

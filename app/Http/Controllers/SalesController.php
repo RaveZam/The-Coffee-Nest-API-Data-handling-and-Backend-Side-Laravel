@@ -12,7 +12,7 @@ class SalesController extends Controller
     public function goToSales(){
         $products = Product::all();
         return view('products.sales' , ['products' => $products]);
-    }
+    } 
     public function addToSales(Request $request){
         $request->validate([
         'product_id' => 'required',
