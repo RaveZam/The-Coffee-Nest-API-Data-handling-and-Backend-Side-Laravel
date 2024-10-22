@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Auth\Events\Validated;
 
 class ProductController extends Controller
 {
@@ -46,7 +47,9 @@ class ProductController extends Controller
         $product->img_url = $validated['image'];
 
         $product->save();
-        return response()->json(['message' => 'Product updated successfully', 'product' => $product]);
+        return response()->json(['message' => 'Product updated successfully'] , 201);
+        // return response()->json(['message' => 'Product updated successfully', 'product' => $product] , 201);
+        
         
     }
 
@@ -73,11 +76,28 @@ class ProductController extends Controller
             $file = $request->file('image');
             $destinationPath = '/Users/runielle/Desktop/DSA Frontend/dsafrontend/public/images/';
             $file->move($destinationPath, $file->getClientOriginalName());
-            $product->update(['img_url' => $file->getClientOriginalName()]); // Save the filename or pat
+            $product->update(['img_url' => './images/' . $file->getClientOriginalName()]); 
         }
 
     return response()->json(['message' => 'Product created successfully', 'product' => $product], 201);
 
+    }
+
+    //Delete Snippet i just need to grab an ID using POST
+    public function destroy(Request $request)
+    {   
+        $validated = $request->valudate([
+            'id' => 'required|integer',
+        ]);
+        // Find the product by ID
+        $product = Product::find($validated['id']);
+        
+        if ($product) {
+            $product->delete();
+            return response()->json(['message' => 'Product deleted successfully'], 201);
+        }
+
+        return response()->json(['message' => 'Product not found'], 404);
     }
 
 }

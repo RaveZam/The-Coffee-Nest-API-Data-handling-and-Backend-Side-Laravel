@@ -16,18 +16,15 @@ class TestController extends Controller
         // Log the incoming request data for debugging
         $validated = $request->validate([
             'sales' => 'required|array',
-            'sales.*.id' => 'required|integer',                  // Adjusted to reflect the expected field
-            'sales.*.newStocks' => 'required|integer',          // Required newStocks field
-            'sales.*.product_img_url' => 'required|string',     // Required image URL field
-            'sales.*.quantity' => 'required|integer',           // Required quantity field
-            'sales.*.stocks' => 'required|integer',             // Required stocks field
+            'sales.*.id' => 'required|integer',                 
+            'sales.*.newStocks' => 'required|integer',          
+            'sales.*.product_img_url' => 'required|string',    
+            'sales.*.quantity' => 'required|integer',           
+            'sales.*.stocks' => 'required|integer',          
         ]);
     
         $specificdate = Carbon::create(2024, 11, 1);
         
-   
-     
-
         foreach($validated['sales'] as $sale){
             $product = Product::find($sale['id']);
             $totalprice = $product->product_price * $sale['quantity'];
