@@ -31,6 +31,6 @@ Route::get('/countedcategory', [SalesController::class, 'callCountedCategory'])-
 Route::get('/totalpriceperday', [SalesController::class, 'callTotalSalesAndDate'])->name('callTotalSalesAndDate.call');
 Route::get('/previousmonthsales', [SalesController::class, 'previousTotalGrossAndQuantity'])->name('callPreviousMonthTotalSalesAndGross'); 
 Route::post('/salesAdd', [SalesController::class, 'store'])->name('callTests');
-Route::put('/products/update', [ProductController::class, 'update'])->name('updateProduct'); 
+Route::post('/products/update', [ProductController::class, 'update'])->name('updateProduct'); 
 Route::post('/products/create', [ProductController::class, 'create'])->name('createProduct'); 
-// Route::delete('/products/delete', [ProductController::class, 'destroy'])->name('createProduct'); 
+Route::delete('/products/delete/{id}', [ProductController::class, 'destroy'])->name('createProduct'); 
