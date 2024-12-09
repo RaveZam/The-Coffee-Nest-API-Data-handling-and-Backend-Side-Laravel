@@ -111,14 +111,15 @@ class SalesController extends Controller
            // Log the incoming request data for debugging
            $validated = $request->validate([
                'sales' => 'required|array',
-               'sales.*.id' => 'required|integer',                 
-               'sales.*.newStocks' => 'required|integer',          
-               'sales.*.product_img_url' => 'required|string',    
-               'sales.*.quantity' => 'required|integer',           
-               'sales.*.stocks' => 'required|integer',          
+               'sales.*.id' => 'required|integer',                  // Adjusted to reflect the expected field
+               'sales.*.newStocks' => 'required|integer',          // Required newStocks field
+               'sales.*.product_img_url' => 'required|string',     // Required image URL field
+               'sales.*.quantity' => 'required|integer',           // Required quantity field
+               'sales.*.stocks' => 'required|integer',             // Required stocks field
            ]);
        
-           $specificdate = Carbon::create(2024, 9, 1);
+           $specificdate = Carbon::create(2024, 9, 15); //Eto papalitan Para When ang date inserted 
+           $dateNow = Carbon::now();
            
            foreach($validated['sales'] as $sale){
                $product = Product::find($sale['id']);
@@ -127,8 +128,13 @@ class SalesController extends Controller
                    'product_id' => $sale['id'],
                    'quantity' => $sale['quantity'],
                    'total_price' => $totalprice,
-                   'sale_date' => $specificdate,
+                   'sale_date' => $dateNow,
                ]);
+   
+               if($product){
+                   $product->stocks = $sale['newStocks'];
+                   $product->save();
+               }
            }
    
            return response()->json(['message' => 'Sales recorded successfully'], 201);

@@ -23,9 +23,6 @@ class TestsController extends Controller
     
         $specificdate = Carbon::create(2024, 11, 1);
         
-   
-     
-
         foreach($validated['sales'] as $sale){
             $product = Product::find($sale['id']);
             $totalprice = $product->product_price * $sale['quantity'];
@@ -41,9 +38,6 @@ class TestsController extends Controller
                 $product->save();
             }
         }
-
-
-
 
         return response()->json(['message' => 'Sales recorded successfully'], 201);
     }
